@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row ">
+        <div class="col-md-4 m-auto">
+            <div class="card rounded shadow shadow-sm">
+                <div class="card-header">
+                    <h3 class="mb-0">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="uname1">Username</label>
+                            <input type="text" class="form-control form-control-lg rounded-0" name="uname1" id="uname1" required="">
+                            <div class="invalid-feedback">Oops, you missed this one.</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control form-control-lg rounded-0" name="pwd1" id="pwd1" required="" autocomplete="new-password">
+                            <div class="invalid-feedback">Enter your password too!</div>
+                        </div>
+                        <div>
+                            <label class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input">
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description small text-dark"><a href="#">Forgot Password?</a></span>
+                              <button type="submit" class="btn btn-dark btn-lg float-right" id="btnLogin">Login</button>
+                            </label>
+                           
+                            
+                        </div>
+                        
+                    </form>
+                </div>
+                <!--/card-block-->
+                {% for message in messages %}
+                <p id="messages"> {{message}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <!--/container-->
+</body>
+</html>

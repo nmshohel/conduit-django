@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>net meter info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+
+
+                <div class="table-responsive">
+               
+                    <h1 style="text-align: center;">Net Meter Report</h1>
+                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th scope="col">S/L</th>
+                            <th scope="col">Install Meter Nos </th>
+                            <th scope="col">Capasity</th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">FY</th>
+                            <th scope="col">Office Code </th>
+                
+                          </tr>
+                        </thead>
+                
+                        
+                        <tbody>
+                          {% for info in response %}
+                     <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ info.install_meter_nos }}</td>
+                        <td>{{ info.capacity_of_install_meter }}</td>
+                        <td>{{ info.month }}</td>
+                        <td>{{ info.year }}</td>
+                        <td>{{ info.fy }}</td>
+                        <td>{{ info.office_code }}</td>
+                          
+                      </tr>
+                      {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+
+
+</body>
+</html>

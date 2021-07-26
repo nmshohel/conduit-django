@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+    {% block content %}
+   
+    <div class="container mt-5">
+      
+     
+      {% if msg %}
+      <div class="alert alert-success" role="alert">
+        {{ msg }}
+      </div>
+      {% endif %}
+      
+      <div class="text-center">
+        <b>সোলার প্যানেল সংক্রান্ত তথ্য প্রদান:</b>
+        <br>
+        
+    </div>
+    <br>
+      <div class="col-md-8 m-auto">
+        
+        <form method="POST">
+          {% csrf_token %}
+          {{form|crispy}}
+     
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-secondary">সংরক্ষণ</button>
+            
+        </div>
+        </form>
+      </div>
+    </div>
+
+    {% endblock content %}
