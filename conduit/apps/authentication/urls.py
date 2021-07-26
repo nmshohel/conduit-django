@@ -4,7 +4,7 @@ from django.urls import path,include
 
 # from .views import RegistrationAPIView,LoginAPIView
 from .views import (
-    LoginAPIView, RegistrationAPIView, UserRetrieveUpdateAPIView, userdelete
+    LoginAPIView, RegistrationAPIView, UserRetrieveUpdateAPIView, userdelete,userlist
 )
 
 app_name = 'authentication'
@@ -19,6 +19,7 @@ urlpatterns = [
     path('user/<str:username>', UserRetrieveUpdateAPIView.as_view()),
 
     path('user/<str:pk>/', userdelete, name="userdelete"),
+    path('users',userlist, name='userlist'),
     path('login', LoginAPIView.as_view()),
     
 ]

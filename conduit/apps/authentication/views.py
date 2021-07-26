@@ -11,7 +11,7 @@ from rest_framework.generics import RetrieveUpdateAPIView
 
 from .serializers import RegistrationSerializer
 from .serializers import (
-    LoginSerializer, RegistrationSerializer,UserSerializer,
+    LoginSerializer, RegistrationSerializer,UserSerializer,UsersSerializer
 )
 from .renderers import UserJSONRenderer
 
@@ -21,16 +21,12 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
 
     def retrieve(self, request,username, *args, **kwargs):
-        # There is nothing to validate or save here. Instead, we just want the
-        # serializer to handle turning our `User` object into something that
-        # can be JSONified and sent to the client.
         
         try:
-            # We use the `select_related` method to avoid making unnecessary
-            # database calls.
+
             user = User.objects.get(username=username)
         except User.DoesNotExist:
-            # raise
+
             raise UserDoesNotExist
         serializer = self.serializer_class(user)
         # serializer = self.serializer_class(request.user)
@@ -66,6 +62,13 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+@login_required
+def userlist(request):
+	users = User.objects.all().order_by('-id')
+	serializer = UsersSerializer(users, many=True)
+	return Response(serializer.data)
+
 @api_view(['DELETE'])
 @login_required
 def userdelete(request, pk):
@@ -74,6 +77,18 @@ def userdelete(request, pk):
 
 	return Response('Item succsesfully delete!')
 
+# def alluser(self, request, *args, **kwargs):
+
+#     try:
+
+#         user = User.objects.all()
+#     except User.DoesNotExist:
+
+#         raise UserDoesNotExist
+#     serializer = self.serializer_class(user)
+#     # serializer = self.serializer_class(request.user)
+
+#     return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegistrationAPIView(APIView):
     # Allow any user (authenticated or not) to hit this endpoint.

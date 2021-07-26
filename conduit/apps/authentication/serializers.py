@@ -166,3 +166,42 @@ class UserSerializer(serializers.ModelSerializer):
         # Save the profile just like we saved the user.
         instance.profile.save()
         return instance
+
+class UsersSerializer(serializers.ModelSerializer):
+    """Handles serialization and deserialization of User objects."""
+
+    # Passwords must be at least 8 characters, but no more than 128 
+    # characters. These values are the default provided by Django. We could
+    # change them, but that would create extra work while introducing no real
+    # benefit, so lets just stick with the defaults.
+    password = serializers.CharField(
+        max_length=128,
+        min_length=8,
+        write_only=True
+    )
+    # When a field should be handled as a serializer, we must explicitly say
+    # so. Moreover, `UserSerializer` should never expose profile information,
+    # so we set `write_only=True`.
+    profile = ProfileSerializer(write_only=True)
+
+    # We want to get the `bio` and `image` fields from the related Profile
+    # model.
+
+    image = serializers.CharField(source='profile.image', read_only=True)
+    office_code = serializers.CharField(source='profile.office_code', read_only=True)
+    office_name = serializers.CharField(source='profile.office_name', read_only=True)
+    office_address = serializers.CharField(source='profile.office_address', read_only=True)
+    
+    class Meta:
+        model = User
+        fields = ('profile','email', 'username', 'password',
+            'image','office_code','office_name','office_address',)
+
+        # The `read_only_fields` option is an alternative for explicitly
+        # specifying the field with `read_only=True` like we did for password
+        # above. The reason we want to use `read_only_fields` here is that
+        # we don't need to specify anything else about the field. The
+        # password field needed the `min_length` and 
+        # `max_length` properties, but that isn't the case for the token
+        # field.
+        read_only_fields = ('token',)
