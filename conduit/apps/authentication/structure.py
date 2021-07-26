@@ -73,4 +73,5 @@ Model: OfficeType
 Model: ManagementInfo
     Fields:
     management_id,
-    management_name
+    management_name_en
+    management_name_bn
