@@ -75,7 +75,7 @@ def userdelete(request, pk):
 	task = User.objects.get(id=pk)
 	task.delete()
 
-	return Response('Item succsesfully delete!')
+	return Response('User succsesfully deleted!')
 
 # def alluser(self, request, *args, **kwargs):
 
