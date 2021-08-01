@@ -1,9 +1,7 @@
 from conduit.apps import profiles
 from conduit.apps.profiles.models import Profile
 import jwt
-
 from datetime import datetime, timedelta
-
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -21,7 +19,7 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, username, email, password=None,):
+    def create_user(self, username,is_management, email, password=None,):
         """Create and return a `User` with an email, username and password."""
         if username is None:
             raise TypeError('Users must have a username.')
@@ -29,11 +27,11 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users must have an email address.')
 
-        user = self.model(username=username, email=self.normalize_email(email))
+        user = self.model(username=username, email=self.normalize_email(email),is_management=is_management)
         user.set_password(password)
         # user.is_staff = True
         user.save()
-
+        
         return user
 
     def create_superuser(self, username, email, password):
@@ -74,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin,TimestampedModel):
     # log into the Django admin site. For most users this flag will always be
     # false.
     is_staff = models.BooleanField(default=False)
-
+    is_management = models.BooleanField(default=False)
     # # A timestamp representing when this object was created.
     # created_at = models.DateTimeField(auto_now_add=True)
 

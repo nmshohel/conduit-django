@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.generics import RetrieveUpdateAPIView
 
-from .serializers import RegistrationSerializer
+# from .serializers import RegistrationSerializer
 from .serializers import (
     LoginSerializer, RegistrationSerializer,UserSerializer,UsersSerializer
 )

@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'conduit.apps.core',
     'conduit.apps.profiles',
     'conduit.apps.rebpbsinfoapp',
+    'conduit.apps.pbs',
+    'conduit.apps.rebmanagement',
 ]
 
 
