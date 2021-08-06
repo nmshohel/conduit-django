@@ -26,4 +26,4 @@ class Pbs(TimestampedModel):
     total_employee_no=models.IntegerField(blank=True,null=True)
 
     def __str__(self):
-        return "%s %s" (self.user.username, self.pbs_name_en)
+        return "%s %s" %(self.user.username, self.pbs_name_en)

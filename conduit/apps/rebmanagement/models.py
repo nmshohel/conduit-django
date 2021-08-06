@@ -12,7 +12,7 @@ class Management(TimestampedModel):
     management_name_bn=models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return "%s %s" (self.user.username,self.management_name_en)
+        return "%s %s" %(self.user.username,self.management_name_en)
 
     # def __str__(self):
     #     return self.user.username
