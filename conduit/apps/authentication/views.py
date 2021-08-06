@@ -9,25 +9,24 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.generics import RetrieveUpdateAPIView
 
-# from .serializers import RegistrationSerializer
 from .serializers import (
-    LoginSerializer, RegistrationSerializer,UserSerializer,UsersSerializer
+    LoginSerializer, RegistrationSerializer,PbsUserSerializer,PbsUsersSerializer,RebUsersSerializer
 )
 from .renderers import UserJSONRenderer
 
-class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+class PbsUserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (UserJSONRenderer,)
-    serializer_class = UserSerializer
+    serializer_class = PbsUserSerializer
 
     def retrieve(self, request,username, *args, **kwargs):
         
         try:
-
             user = User.objects.get(username=username)
-        except User.DoesNotExist:
 
+        except User.DoesNotExist:
             raise UserDoesNotExist
+
         serializer = self.serializer_class(user)
         # serializer = self.serializer_class(request.user)
 
@@ -35,24 +34,40 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
 
     def update(self, request, *args, **kwargs):
-        # serializer_data = request.data.get('user', {})
         user_data = request.data.get('user', {})
 
         serializer_data = {
         'username': user_data.get('username', request.user.username),
         'email': user_data.get('email', request.user.email),
 
-        'profile': {
-            'bio': user_data.get('bio', request.user.profile.bio),
-            'image': user_data.get('image', request.user.profile.image),
-            'office_code': user_data.get('office_code', request.user.profile.office_code),
-            'office_name': user_data.get('office_name', request.user.profile.office_name),
-            'office_address': user_data.get('office_address', request.user.profile.office_address)
+        'pbs':{
+            'pbs_code':user_data.get('pbs_code', request.user.pbs.pbs_code),
+            'pbs_name_en':user_data.get('pbs_name_en', request.user.pbs.pbs_name_en),
+            'pbs_name_bn':user_data.get('pbs_name_bn', request.user.pbs.pbs_name_bn),
+            'address_en':user_data.get('address_en', request.user.pbs.address_en),
+            'address_bn':user_data.get('address_bn', request.user.pbs.address_bn),
+            'lat_long_value':user_data.get('lat_long_value', request.user.pbs.lat_long_value),
+            'office_head_name':user_data.get('office_head_name', request.user.pbs.office_head_name),
+            'office_head_Designation':user_data.get('office_head_Designation', request.user.pbs.office_head_Designation),
+            'office_head_mobile_num':user_data.get('office_head_mobile_num', request.user.pbs.office_head_mobile_num),
+            'complain_center_mobile_num':user_data.get('complain_center_mobile_num', request.user.pbs.complain_center_mobile_num),
+            'pbs_logo':user_data.get('pbs_logo', request.user.pbs.pbs_logo),
+            'total_consumer_nos':user_data.get('total_consumer_nos', request.user.pbs.total_consumer_nos),
+            'total_billing_consumer_nos':user_data.get('total_billing_consumer_nos', request.user.pbs.total_billing_consumer_nos),
+            'total_service_area_km':user_data.get('total_service_area_km', request.user.pbs.total_service_area_km),
+            'total_line_km':user_data.get('total_line_km', request.user.pbs.total_line_km),
+            'total_employee_nos':user_data.get('total_employee_nos', request.user.pbs.total_employee_nos),
         }
+
+        # 'profile': {
+        #     'bio': user_data.get('bio', request.user.profile.bio),
+        #     'image': user_data.get('image', request.user.profile.image),
+        #     'office_code': user_data.get('office_code', request.user.profile.office_code),
+        #     'office_name': user_data.get('office_name', request.user.profile.office_name),
+        #     'office_address': user_data.get('office_address', request.user.profile.office_address)
+        # }
     }
 
-        # Here is that serialize, validate, save pattern we talked about
-        # before.
         serializer = self.serializer_class(
             request.user, data=serializer_data, partial=True
         )
@@ -64,9 +79,16 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
 
 @api_view(['GET'])
 @login_required
-def userlist(request):
-	users = User.objects.all().order_by('-id')
-	serializer = UsersSerializer(users, many=True)
+def pbsuserlist(request):
+	users = User.objects.filter(is_management=False).order_by('-id')
+	serializer = PbsUsersSerializer(users, many=True)
+	return Response(serializer.data)
+
+@api_view(['GET'])
+@login_required
+def rebuserlist(request):
+	users = User.objects.filter(is_management=True).order_by('-id')
+	serializer = RebUsersSerializer(users, many=True)
 	return Response(serializer.data)
 
 @api_view(['DELETE'])

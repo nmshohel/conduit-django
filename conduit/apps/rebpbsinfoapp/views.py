@@ -147,7 +147,7 @@ class NetMeterInfoViewset(viewsets.ModelViewSet):
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def net_meter_report(request):
-    response=requests.get('http://127.0.0.1:8000/api/net_meter_info/').json()
+    response=requests.get('http://127.0.0.1:8000/api/v1/net_meter_info/').json()
     return render(request,'net_meter_report.html',{'response':response})
     
 

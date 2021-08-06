@@ -22,4 +22,8 @@ urlpatterns = [
     path('api/v1/', include('conduit.apps.authentication.urls', namespace='authentication')),
     path('api/v1/', include('conduit.apps.profiles.urls', namespace='profiles')),
     path('api/v1/', include('conduit.apps.rebpbsinfoapp.urls', namespace='rebpbsinfoapp')),
+    path('api/v1/', include('conduit.apps.solarinfoapp.urls', namespace='solarinfoapp')),
+    path('api/v1/', include('conduit.apps.gridchargingstationapp.urls', namespace='gridchargingstationapp')),
+
+
 ]

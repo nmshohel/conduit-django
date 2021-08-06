@@ -1,4 +1,3 @@
-from conduit.apps.rebmanagement.models import Management
 from django.db import models
 # from conduit.apps.authentication.models import User
 from conduit.apps.core.models import TimestampedModel
@@ -27,4 +26,4 @@ class Pbs(TimestampedModel):
     total_employee_no=models.IntegerField(blank=True,null=True)
 
     def __str__(self):
-        return "%s %s" % (self.user.username, self.pbs_name_en)
+        return "%s %s" (self.user.username, self.pbs_name_en)

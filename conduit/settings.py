@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'conduit.apps.rebpbsinfoapp',
     'conduit.apps.pbs',
     'conduit.apps.rebmanagement',
+    'conduit.apps.solarinfoapp',
+    'conduit.apps.gridchargingstationapp',
+    
 ]
 
 

@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from django.db import models
 from .models import Profile
-
+ 
 
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')

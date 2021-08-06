@@ -1,6 +1,10 @@
+from rest_framework.fields import ReadOnlyField
+from conduit.apps.pbs.models import Pbs
+from conduit.apps.rebmanagement.models import Management
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from conduit.apps.profiles.serializers import ProfileSerializer
+from conduit.apps.pbs.serializers import PbsSerializer
+from conduit.apps.rebmanagement.serializers import RebSerializer
 from .models import User
 
 
@@ -30,154 +34,155 @@ class LoginSerializer(serializers.Serializer):
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
-        # The `validate` method is where we make sure that the current
-        # instance of `LoginSerializer` has "valid". In the case of logging a
-        # user in, this means validating that they've provided an email
-        # and password and that this combination matches one of the users in
-        # our database.
+
         email = data.get('email', None)
         password = data.get('password', None)
 
-        # Raise an exception if an
-        # email is not provided.
         if email is None:
             raise serializers.ValidationError(
                 'An email address is required to log in.'
             )
-
-        # Raise an exception if a
-        # password is not provided.
         if password is None:
             raise serializers.ValidationError(
                 'A password is required to log in.'
             )
 
-        # The `authenticate` method is provided by Django and handles checking
-        # for a user that matches this email/password combination. Notice how
-        # we pass `email` as the `username` value since in our User
-        # model we set `USERNAME_FIELD` as `email`.
         user = authenticate(username=email, password=password)
 
-        # If no user was found matching this email/password combination then
-        # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise serializers.ValidationError(
                 'A user with this email and password was not found.'
             )
 
-        # Django provides a flag on our `User` model called `is_active`. The
-        # purpose of this flag is to tell us whether the user has been banned
-        # or deactivated. This will almost never be the case, but
-        # it is worth checking. Raise an exception in this case.
         if not user.is_active:
             raise serializers.ValidationError(
                 'This user has been deactivated.'
             )
 
-        # The `validate` method should return a dictionary of validated data.
-        # This is the data that is passed to the `create` and `update` methods
-        # that we will see later on.
         return {
             'email': user.email,
             'username': user.username,
             'token': user.token
         }
 
-class UserSerializer(serializers.ModelSerializer):
+class PbsUserSerializer(serializers.ModelSerializer):
     """Handles serialization and deserialization of User objects."""
 
-    # Passwords must be at least 8 characters, but no more than 128 
-    # characters. These values are the default provided by Django. We could
-    # change them, but that would create extra work while introducing no real
-    # benefit, so lets just stick with the defaults.
     password = serializers.CharField(
         max_length=128,
         min_length=8,
         write_only=True
     )
-    # When a field should be handled as a serializer, we must explicitly say
-    # so. Moreover, `UserSerializer` should never expose profile information,
-    # so we set `write_only=True`.
-    profile = ProfileSerializer(write_only=True)
 
-    # We want to get the `bio` and `image` fields from the related Profile
-    # model.
-    bio = serializers.CharField(source='profile.bio', read_only=True)
-    image = serializers.CharField(source='profile.image', read_only=True)
-    office_code = serializers.CharField(source='profile.office_code', read_only=True)
-    office_name = serializers.CharField(source='profile.office_name', read_only=True)
-    office_address = serializers.CharField(source='profile.office_address', read_only=True)
+    pbs = PbsSerializer(write_only=True)
+
+    username = serializers.CharField(source='user.username', read_only=True)
+    management_name_en=serializers.CharField(source='management.management_name_en', read_only=True)
+    pbs_code=serializers.CharField(source='pbs.pbs_code', read_only=True)
+    pbs_name_en=serializers.CharField(source='pbs.pbs_name_en', read_only=True)
+    pbs_name_bn=serializers.CharField(source='pbs.pbs_name_bn', read_only=True)
+    address_en=serializers.CharField(source='pbs.address_en', read_only=True)
+    address_bn=serializers.CharField(source='pbs.address_bn', read_only=True)
+    lat_long_value=serializers.FloatField(source='pbs.lat_long_value', read_only=True)
+    office_head_name=serializers.CharField(source='pbs.office_head_name', read_only=True)
+    office_head_Designation=serializers.CharField(source='pbs.office_head_Designation', read_only=True)
+    office_head_mobile_num=serializers.CharField(source='pbs.office_head_mobile_num', read_only=True)
+    complain_center_mobile_num=serializers.CharField(source='pbs.complain_center_mobile_num', read_only=True)
+    pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
+    total_consumer_nos=serializers.IntegerField(source='pbs.total_consumer_nos', read_only=True)
+    total_billing_consumer_nos=serializers.IntegerField(source='pbs.total_billing_consumer_nos', read_only=True)
+    total_service_area_km=serializers.IntegerField(source='pbs.total_service_area_km', read_only=True)
+    total_line_km=serializers.IntegerField(source='pbs.total_line_km', read_only=True)
+    total_employee_no=serializers.IntegerField(source='pbs.total_employee_no', read_only=True)
     
     class Meta:
         model = User
-        fields = ('profile','email', 'username', 'password', 'token','bio',
-            'image','office_code','office_name','office_address',)
+        fields = ('pbs','username','email','password','management_name_en','pbs_code','pbs_name_en','pbs_name_bn','address_en',
+        'address_bn','lat_long_value','office_head_name','office_head_Designation',
+        'office_head_mobile_num','complain_center_mobile_num','pbs_logo','total_consumer_nos',
+        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_no',)
 
-        # The `read_only_fields` option is an alternative for explicitly
-        # specifying the field with `read_only=True` like we did for password
-        # above. The reason we want to use `read_only_fields` here is that
-        # we don't need to specify anything else about the field. The
-        # password field needed the `min_length` and 
-        # `max_length` properties, but that isn't the case for the token
-        # field.
         read_only_fields = ('token',)
 
 
     def update(self, instance, validated_data):
         """Performs an update on a User."""
 
-        # Passwords should not be handled with `setattr`, unlike other fields.
-        # Django provides a function that handles hashing and
-        # salting passwords. That means
-        # we need to remove the password field from the
-        # `validated_data` dictionary before iterating over it.
         password = validated_data.pop('password', None)
 
-        # Like passwords, we have to handle profiles separately. To do that,
-        # we remove the profile data from the `validated_data` dictionary.
         profile_data = validated_data.pop('profile', {})
 
         for (key, value) in validated_data.items():
-            # For the keys remaining in `validated_data`, we will set them on
-            # the current `User` instance one at a time.
+
             setattr(instance, key, value)
 
         if password is not None:
-            # `.set_password()`  handles all
-            # of the security stuff that we shouldn't be concerned with.
+
             instance.set_password(password)
 
-        # After everything has been updated we must explicitly save
-        # the model. It's worth pointing out that `.set_password()` does not
-        # save the model.
         instance.save()
 
         for (key, value) in profile_data.items():
-            # We're doing the same thing as above, but this time we're making
-            # changes to the Profile model.
+
             setattr(instance.profile, key, value)
 
-        # Save the profile just like we saved the user.
         instance.profile.save()
         return instance
 
-class UsersSerializer(serializers.ModelSerializer):
-    """Handles serialization and deserialization of User objects."""
+class PbsUsersSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(
         max_length=128,
         min_length=8,
         write_only=True
     )
-    profile = ProfileSerializer(write_only=True)
-    image = serializers.CharField(source='profile.image', read_only=True)
-    office_code = serializers.CharField(source='profile.office_code', read_only=True)
-    office_name = serializers.CharField(source='profile.office_name', read_only=True)
-    office_address = serializers.CharField(source='profile.office_address', read_only=True)
+    pbs = PbsSerializer(write_only=True)
+
+    username = serializers.CharField(source='user.username', read_only=True)
+    management_name_en=serializers.CharField(source='pbs.management_name_en', read_only=True)
+    pbs_code=serializers.CharField(source='pbs.pbs_code', read_only=True)
+    pbs_name_en=serializers.CharField(source='pbs.pbs_name_en', read_only=True)
+    pbs_name_bn=serializers.CharField(source='pbs.pbs_name_bn', read_only=True)
+    address_en=serializers.CharField(source='pbs.address_en', read_only=True)
+    address_bn=serializers.CharField(source='pbs.address_bn', read_only=True)
+    lat_long_value=serializers.FloatField(source='pbs.lat_long_value', read_only=True)
+    office_head_name=serializers.CharField(source='pbs.office_head_name', read_only=True)
+    office_head_Designation=serializers.CharField(source='pbs.office_head_Designation', read_only=True)
+    office_head_mobile_num=serializers.CharField(source='pbs.office_head_mobile_num', read_only=True)
+    complain_center_mobile_num=serializers.CharField(source='pbs.complain_center_mobile_num', read_only=True)
+    pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
+    total_consumer_nos=serializers.IntegerField(source='pbs.total_consumer_nos', read_only=True)
+    total_billing_consumer_nos=serializers.IntegerField(source='pbs.total_billing_consumer_nos', read_only=True)
+    total_service_area_km=serializers.IntegerField(source='pbs.total_service_area_km', read_only=True)
+    total_line_km=serializers.IntegerField(source='pbs.total_line_km', read_only=True)
+    total_employee_no=serializers.IntegerField(source='pbs.total_employee_no', read_only=True)
     
     class Meta:
         model = User
-        fields = ('profile','email', 'username', 'password',
-            'image','office_code','office_name','office_address',)
+        fields = ('pbs','username','email','password','management_name_en','pbs_code','pbs_name_en','pbs_name_bn','address_en',
+        'address_bn','lat_long_value','office_head_name','office_head_Designation',
+        'office_head_mobile_num','complain_center_mobile_num','pbs_logo','total_consumer_nos',
+        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_no',)
+
+        read_only_fields = ('token',)
+
+
+class RebUsersSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(
+        max_length=128,
+        min_length=8,
+        write_only=True
+    )
+    management = RebSerializer(write_only=True)
+
+    username = serializers.CharField(source='user.username', read_only=True)
+    management_id=serializers.IntegerField(source='management.management_id', read_only=True)
+    management_name_en=serializers.CharField(source='management.management_name_en', read_only=True)
+    management_name_bn=serializers.CharField(source='management.management_name_bn', read_only=True)
+   
+    class Meta:
+        model = User
+        fields = ('management','username','email','password','management_id','management_name_en','management_name_bn','token',)
 
         read_only_fields = ('token',)

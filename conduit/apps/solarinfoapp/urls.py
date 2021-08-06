@@ -3,19 +3,19 @@ from django.conf.urls import url,include
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 # from rest_framework import views
-from .views import NetMeterInfoRetrieveAPIView,NetMeterInfoViewset, net_meter_report
+from .views import SolarInfoRetrieveAPIView,SolarInfoViewset, solar_report
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('net_meter_info', NetMeterInfoViewset, basename='net_meter_info')
+router.register('solar_info', SolarInfoViewset, basename='solar_info')
 # router.register('net_meter', net_meter_report, basename='net_meter')
 
-app_name = 'rebpbsinfoapp'
+app_name = 'solarinfoapp'
 urlpatterns = [
     
-    path('rebpbsinfoapp/<str:username>', NetMeterInfoRetrieveAPIView.as_view()),
+    path('solar/info/<str:username>', SolarInfoRetrieveAPIView.as_view()),
     url('', include(router.urls)),
     url('<int:id>/', include(router.urls)),
-    path('net_meter/', net_meter_report, name='net_meter_report'),
+    path('solar/info', solar_report, name='solar_report'),
 
 ]
