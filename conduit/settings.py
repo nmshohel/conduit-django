@@ -32,7 +32,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+    "http://localhost:8080",
+    "http://127.0.0.1:8081"
+]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +51,7 @@ INSTALLED_APPS = [
     
     'django_extensions',
     'rest_framework',
+    'corsheaders',
     'crispy_forms',
     'conduit.apps.articles',
     'conduit.apps.authentication',
@@ -55,6 +62,9 @@ INSTALLED_APPS = [
     'conduit.apps.rebmanagement',
     'conduit.apps.solarinfoapp',
     'conduit.apps.gridchargingstationapp',
+    'advanced_filters',
+
+
     
 ]
 
@@ -62,6 +72,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -105,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'conduitapi',
         'USER': 'postgres',
-        'PASSWORD': 'Ripon@123',
+        'PASSWORD': 'admin',
         'HOSTNAME':'localhost',
     }
 }

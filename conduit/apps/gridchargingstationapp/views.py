@@ -49,6 +49,7 @@ class GridChargingStationInfoViewset(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         gridchargingstationinfo = GridChargingStationInfo.objects.all()
+        # gridchargingstationinfo = GridChargingStationInfo.objects.raw('select * from gridchargingstationapp_GridChargingStationInfo where pbs_code=15')
         return gridchargingstationinfo
 
    

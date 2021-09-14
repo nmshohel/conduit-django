@@ -4,6 +4,7 @@ from rest_framework import serializers,viewsets
 from rest_framework import response
 from conduit.apps.authentication.renderers import UserJSONRenderer
 from conduit.apps.authentication.models import User
+from conduit.apps.pbs.models import Pbs
 from datetime import date
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
@@ -49,6 +50,7 @@ class SolarInfoViewset(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         solar_info = SolarPanelInfo.objects.all()
+        # solar_info = SolarPanelInfo.objects.raw('select * from solarinfoapp_SolarPanelInfo where pbs_code like "015"')
         return solar_info
 
    

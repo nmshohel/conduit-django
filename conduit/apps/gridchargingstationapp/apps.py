@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class GridchargingstationappConfig(AppConfig):
-    name = 'gridchargingstationapp'
+    name = 'conduit.apps.gridchargingstationapp'
