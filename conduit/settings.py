@@ -31,7 +31,6 @@ SECRET_KEY = 'e^9s8q1bp*n$g@wrs46)0#!*g4@2dw1d8v=*=tu_iv-483h=^u'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8081",
     "http://localhost:8080",
@@ -39,6 +38,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     
     'django_extensions',
     'rest_framework',
-    'corsheaders',
     'crispy_forms',
+    'corsheaders',
     'conduit.apps.articles',
     'conduit.apps.authentication',
     'conduit.apps.core',
@@ -62,9 +62,6 @@ INSTALLED_APPS = [
     'conduit.apps.rebmanagement',
     'conduit.apps.solarinfoapp',
     'conduit.apps.gridchargingstationapp',
-    'advanced_filters',
-
-
     
 ]
 
@@ -72,8 +69,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -114,7 +111,7 @@ WSGI_APPLICATION = 'conduit.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'conduitapi',
+        'NAME': 'rebpbsapi',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOSTNAME':'localhost',

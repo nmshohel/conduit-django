@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.http.response import Http404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import serializers,viewsets,mixins
 from rest_framework import response
@@ -46,7 +47,7 @@ class NetMeterInfoRetrieveAPIView(RetrieveAPIView):
 class NetMeterInfoViewset(viewsets.ModelViewSet):
     serializer_class = NetMeterInfoSerializer
     # throttle_scope = "first_app"
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         net_meter_info = NetMeterInfo.objects.all()
         return net_meter_info
@@ -56,7 +57,7 @@ class NetMeterInfoViewset(viewsets.ModelViewSet):
         meter_data = request.data
 
         new_info = NetMeterInfo.objects.create(install_meter_nos=meter_data["install_meter_nos"], capacity_of_install_meter=meter_data[
-            "capacity_of_install_meter"], month=meter_data["month"],year=meter_data["year"], fy=meter_data["fy"],office_code=meter_data["office_code"])
+            "capacity_of_install_meter"], month=meter_data["month"],year=meter_data["year"], fy=meter_data["fy"],pbs_code=meter_data["pbs_code"])
 
         new_info.save()
 
@@ -64,11 +65,12 @@ class NetMeterInfoViewset(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
+
     def destroy(self, request, *args, **kwargs):
         logedin_user = request.user
-        if(logedin_user == "admin"):
-            car = self.get_object()
-            car.delete()
+        if(IsAuthenticated):
+            item = self.get_object()
+            item.delete()
             response_message = {"message": "Item has been deleted"}
         else:
             response_message = {"message": "Not Allowed"}
@@ -87,7 +89,7 @@ class NetMeterInfoViewset(viewsets.ModelViewSet):
         net_meter_object.month = data["month"]
         net_meter_object.year = data["year"]
         net_meter_object.fy = data["fy"]
-        net_meter_object.office_code = data["office_code"]
+        net_meter_object.pbs_code = data["pbs_code"]
 
         net_meter_object.save()
 
@@ -110,7 +112,7 @@ class NetMeterInfoViewset(viewsets.ModelViewSet):
         net_meter_object.month = data.get("month", net_meter_object.month)
         net_meter_object.year = data.get("year", net_meter_object.year)
         net_meter_object.fy = data.get("fy", net_meter_object.fy)
-        net_meter_object.office_code = data.get("office_code", net_meter_object.office_code)
+        net_meter_object.pbs_code = data.get("pbs_code", net_meter_object.pbs_code)
 
         net_meter_object.save()
 

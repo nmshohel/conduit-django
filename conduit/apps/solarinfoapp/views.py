@@ -8,7 +8,7 @@ from conduit.apps.pbs.models import Pbs
 from datetime import date
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 import requests
 from requests.structures import CaseInsensitiveDict
@@ -46,8 +46,7 @@ class SolarInfoRetrieveAPIView(RetrieveAPIView):
 
 class SolarInfoViewset(viewsets.ModelViewSet):
     serializer_class = SolarInfoSerializer
-    # throttle_scope = "first_app"
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         solar_info = SolarPanelInfo.objects.all()
         # solar_info = SolarPanelInfo.objects.raw('select * from solarinfoapp_SolarPanelInfo where pbs_code like "015"')
@@ -68,9 +67,9 @@ class SolarInfoViewset(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         logedin_user = request.user
-        if(logedin_user == "admin"):
-            car = self.get_object()
-            car.delete()
+        if(IsAuthenticated):
+            item = self.get_object()
+            item.delete()
             response_message = {"message": "Item has been deleted"}
         else:
             response_message = {"message": "Not Allowed"}

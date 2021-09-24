@@ -26,6 +26,24 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
+class SuperUserRegistrationSerializer(serializers.ModelSerializer):
+    """Serializers registration requests and creates a new user."""
+
+    password = serializers.CharField(
+        max_length=128,
+        min_length=8,
+        write_only=True
+    )
+
+    token = serializers.CharField(max_length=255, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'password', 'token','is_management']
+
+    def create(self, validated_data):
+        return User.objects.create_superuser(**validated_data)
+
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
@@ -75,32 +93,32 @@ class PbsUserSerializer(serializers.ModelSerializer):
     )
 
     pbs = PbsSerializer(write_only=True)
-
+    
     username = serializers.CharField(source='user.username', read_only=True)
-    management_name_en=serializers.CharField(source='management.management_name_en', read_only=True)
+    management_id=serializers.CharField(source='pbs.management_id', read_only=True)
     pbs_code=serializers.CharField(source='pbs.pbs_code', read_only=True)
     pbs_name_en=serializers.CharField(source='pbs.pbs_name_en', read_only=True)
     pbs_name_bn=serializers.CharField(source='pbs.pbs_name_bn', read_only=True)
     address_en=serializers.CharField(source='pbs.address_en', read_only=True)
     address_bn=serializers.CharField(source='pbs.address_bn', read_only=True)
-    lat_long_value=serializers.FloatField(source='pbs.lat_long_value', read_only=True)
+    lat_long_value=serializers.CharField(source='pbs.lat_long_value', read_only=True)
     office_head_name=serializers.CharField(source='pbs.office_head_name', read_only=True)
     office_head_Designation=serializers.CharField(source='pbs.office_head_Designation', read_only=True)
     office_head_mobile_num=serializers.CharField(source='pbs.office_head_mobile_num', read_only=True)
     complain_center_mobile_num=serializers.CharField(source='pbs.complain_center_mobile_num', read_only=True)
-    pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
+    # pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
     total_consumer_nos=serializers.IntegerField(source='pbs.total_consumer_nos', read_only=True)
     total_billing_consumer_nos=serializers.IntegerField(source='pbs.total_billing_consumer_nos', read_only=True)
     total_service_area_km=serializers.IntegerField(source='pbs.total_service_area_km', read_only=True)
     total_line_km=serializers.IntegerField(source='pbs.total_line_km', read_only=True)
-    total_employee_no=serializers.IntegerField(source='pbs.total_employee_no', read_only=True)
+    total_employee_nos=serializers.IntegerField(source='pbs.total_employee_nos', read_only=True)
     
     class Meta:
         model = User
-        fields = ('pbs','username','email','password','management_name_en','pbs_code','pbs_name_en','pbs_name_bn','address_en',
+        fields = ('pbs','username','email','password','management_id','pbs_code','pbs_name_en','pbs_name_bn','address_en',
         'address_bn','lat_long_value','office_head_name','office_head_Designation',
-        'office_head_mobile_num','complain_center_mobile_num','pbs_logo','total_consumer_nos',
-        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_no',)
+        'office_head_mobile_num','complain_center_mobile_num','total_consumer_nos',
+        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_nos',)
 
         read_only_fields = ('token',)
 
@@ -110,8 +128,8 @@ class PbsUserSerializer(serializers.ModelSerializer):
 
         password = validated_data.pop('password', None)
 
-        profile_data = validated_data.pop('profile', {})
-
+        # profile_data = validated_data.pop('profile', {})
+        pbs_data = validated_data.pop('pbs', {})
         for (key, value) in validated_data.items():
 
             setattr(instance, key, value)
@@ -122,11 +140,15 @@ class PbsUserSerializer(serializers.ModelSerializer):
 
         instance.save()
 
-        for (key, value) in profile_data.items():
+        for (key, value) in pbs_data.items():
+        # for (key, value) in profile_data.items():
+        
 
-            setattr(instance.profile, key, value)
+            setattr(instance.pbs, key, value)
+            # setattr(instance.profile, key, value)
 
-        instance.profile.save()
+        # instance.profile.save()
+        instance.pbs.save()
         return instance
 
 class PbsUsersSerializer(serializers.ModelSerializer):
@@ -139,32 +161,78 @@ class PbsUsersSerializer(serializers.ModelSerializer):
     pbs = PbsSerializer(write_only=True)
 
     username = serializers.CharField(source='user.username', read_only=True)
-    management_name_en=serializers.CharField(source='pbs.management_name_en', read_only=True)
+    management_id=serializers.CharField(source='pbs.management_id', read_only=True)
     pbs_code=serializers.CharField(source='pbs.pbs_code', read_only=True)
     pbs_name_en=serializers.CharField(source='pbs.pbs_name_en', read_only=True)
     pbs_name_bn=serializers.CharField(source='pbs.pbs_name_bn', read_only=True)
     address_en=serializers.CharField(source='pbs.address_en', read_only=True)
     address_bn=serializers.CharField(source='pbs.address_bn', read_only=True)
-    lat_long_value=serializers.FloatField(source='pbs.lat_long_value', read_only=True)
+    lat_long_value=serializers.CharField(source='pbs.lat_long_value', read_only=True)
     office_head_name=serializers.CharField(source='pbs.office_head_name', read_only=True)
     office_head_Designation=serializers.CharField(source='pbs.office_head_Designation', read_only=True)
     office_head_mobile_num=serializers.CharField(source='pbs.office_head_mobile_num', read_only=True)
     complain_center_mobile_num=serializers.CharField(source='pbs.complain_center_mobile_num', read_only=True)
-    pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
+    # pbs_logo=serializers.ImageField(source='pbs.pbs_logo', read_only=True)
     total_consumer_nos=serializers.IntegerField(source='pbs.total_consumer_nos', read_only=True)
     total_billing_consumer_nos=serializers.IntegerField(source='pbs.total_billing_consumer_nos', read_only=True)
     total_service_area_km=serializers.IntegerField(source='pbs.total_service_area_km', read_only=True)
     total_line_km=serializers.IntegerField(source='pbs.total_line_km', read_only=True)
-    total_employee_no=serializers.IntegerField(source='pbs.total_employee_no', read_only=True)
+    total_employee_nos=serializers.IntegerField(source='pbs.total_employee_nos', read_only=True)
     
     class Meta:
-        model = User
-        fields = ('pbs','username','email','password','management_name_en','pbs_code','pbs_name_en','pbs_name_bn','address_en',
+        model = Pbs
+        fields = ('pbs','username','email','password','management_id','pbs_code','pbs_name_en','pbs_name_bn','address_en',
         'address_bn','lat_long_value','office_head_name','office_head_Designation',
-        'office_head_mobile_num','complain_center_mobile_num','pbs_logo','total_consumer_nos',
-        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_no',)
+        'office_head_mobile_num','complain_center_mobile_num','total_consumer_nos',
+        'total_billing_consumer_nos','token','total_service_area_km','total_line_km','total_employee_nos',)
 
         read_only_fields = ('token',)
+
+
+class RebUserSerializer(serializers.ModelSerializer):
+    """Handles serialization and deserialization of User objects."""
+
+    password = serializers.CharField(
+        max_length=128,
+        min_length=8,
+        write_only=True
+    )
+
+    management = RebSerializer(write_only=True)
+
+    username = serializers.CharField(source='user.username', read_only=True)
+    breb_office_name_en=serializers.CharField(source='management.breb_office_name_en', read_only=True)
+    breb_office_name_bn=serializers.CharField(source='management.breb_office_name_bn', read_only=True)
+ 
+    class Meta:
+        model = User
+        fields = ('management','username','email','password','breb_office_name_en','breb_office_name_bn',)
+
+        read_only_fields = ('token',)
+
+
+    def update(self, instance, validated_data):
+        """Performs an update on a User."""
+
+        password = validated_data.pop('password', None)
+
+        management_data = validated_data.pop('management', {})
+        for (key, value) in validated_data.items():
+
+            setattr(instance, key, value)
+
+        if password is not None:
+
+            instance.set_password(password)
+
+        instance.save()
+
+        for (key, value) in management_data.items():
+
+            setattr(instance.management, key, value)
+
+        instance.management.save()
+        return instance
 
 
 class RebUsersSerializer(serializers.ModelSerializer):
@@ -177,12 +245,11 @@ class RebUsersSerializer(serializers.ModelSerializer):
     management = RebSerializer(write_only=True)
 
     username = serializers.CharField(source='user.username', read_only=True)
-    management_id=serializers.IntegerField(source='management.management_id', read_only=True)
-    management_name_en=serializers.CharField(source='management.management_name_en', read_only=True)
-    management_name_bn=serializers.CharField(source='management.management_name_bn', read_only=True)
+    breb_office_name_en=serializers.CharField(source='management.breb_office_name_en', read_only=True)
+    breb_office_name_bn=serializers.CharField(source='management.breb_office_name_bn', read_only=True)
    
     class Meta:
-        model = User
-        fields = ('management','username','email','password','management_id','management_name_en','management_name_bn','token',)
+        model = Management
+        fields = ('management','username','email','password','breb_office_name_en','breb_office_name_bn','token',)
 
         read_only_fields = ('token',)

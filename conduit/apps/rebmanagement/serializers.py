@@ -6,13 +6,13 @@ from .models import Management
 
 class RebSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
-    management_id=serializers.IntegerField()
-    management_name_en=serializers.CharField(max_length=100,allow_blank=True, allow_null=True)
-    management_name_bn=serializers.CharField(max_length=200,allow_blank=True, allow_null=True)
+    management_id=serializers.IntegerField(required=False,allow_null=True)
+    breb_office_name_en=serializers.CharField(max_length=100,allow_blank=True, allow_null=True)
+    breb_office_name_bn=serializers.CharField(max_length=200,allow_blank=True, allow_null=True)
 
     class Meta:
         model = Management
-        fields = ('username','management_id','management_name_en','management_name_en',)
+        fields = ('username','management_id','breb_office_name_en','breb_office_name_bn',)
 
         read_only_fields = ('username',)
     

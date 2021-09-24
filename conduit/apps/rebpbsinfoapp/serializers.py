@@ -18,12 +18,12 @@ class NetMeterInfoSerializer(serializers.ModelSerializer):
     month=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
     year=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
     fy=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
-    office_code=serializers.IntegerField()
+    pbs_code=serializers.CharField(max_length=3, allow_blank=True, allow_null=True)
 
     class Meta:
         model = NetMeterInfo
         fields = ['id','install_meter_nos', 'capacity_of_install_meter',
-        'month','year','fy','office_code']
+        'month','year','fy','pbs_code']
         depth = 1
         # read_only_fields = ('user',)
         # @csrf_exempt

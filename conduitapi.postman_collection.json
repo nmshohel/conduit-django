@@ -1,0 +1,991 @@
+{
+	"info": {
+		"_postman_id": "e92858d6-6fbf-4b50-8aba-33feb0307b17",
+		"name": "conduitapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SuperUser_register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":{\r\n        \"email\":\"ripon2488@gmail.com\",\r\n        \"password\":\"Ripon@123\",\r\n        \"username\":\"ripon2488\",\r\n        \"is_management\":\"\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/superuserregister/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"superuserregister",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User_Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":{\r\n        \"email\":\"tangail@yahoo.com\",\r\n        \"password\":\"Tangail4@123\",\r\n        \"username\":\"tangail\",\r\n        \"is_management\":\"False\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/register/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":{\r\n        \"email\":\"dhaka3@yahoo.com\",\r\n        \"password\":\"Dhaka3@123\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rebusers_get_list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NjYsImV4cCI6MTYzMzAwMzQxNn0.jBG0K1a2HhegzogtZD7OgqA9RRRACQZSpG_9xiPXiq8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/rebusers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"rebusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pbsuser_get_list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NjYsImV4cCI6MTYzMjk4MDg2OH0.7_R29kv137U9zn3JFXYc1qylk5zIwGP-1eyq4hpB2LI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/pbsusers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"pbsusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specific_pbsuser_get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzUsImV4cCI6MTYzNjc5NTczN30.IwjvDL9j8ZIN9Jt7JYMjVLvet2oAFPRH96fUbrll-A4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/pbsuser/dhaka1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"pbsuser",
+						"dhaka1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specific_rebuser_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzUsImV4cCI6MTYzNjc4MDQwNH0.O_lk3ufDcti4U-tDFOFqmpC9Qkuhmt2XuERn06Mxnjg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/rebuser/central",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"rebuser",
+						"central"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specific_pbsUser_Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzUsImV4cCI6MTYzNjc5NTczN30.IwjvDL9j8ZIN9Jt7JYMjVLvet2oAFPRH96fUbrll-A4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"pbs_code\": \"001\",\r\n        \"management_id\":\"30\",\r\n        \"pbs_name_en\": \"Dhaka PBS-1\",\r\n        \"pbs_name_bn\": \"ঢাকা পবিস-১\",\r\n        \"address_en\": \"Savar, Dhaka\",\r\n        \"address_bn\": \"সাভার, ঢাকা\",\r\n        \"lat_long_value\": \"5355.2666, 14669.2666\",\r\n        \"office_head_name\": \"Md.  Miah\",\r\n        \"office_head_Designation\": \"GM\",\r\n        \"office_head_mobile_num\": \"01776401954\",\r\n        \"complain_center_mobile_num\": \"01732119556\",\r\n        \"total_consumer_nos\": 550000,\r\n        \"total_billing_consumer_nos\": 500000,\r\n        \"total_service_area_km\": 10000,\r\n        \"total_line_km\": 10087,\r\n        \"total_employee_nos\": 556\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/pbsuser/dhaka1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"pbsuser",
+						"dhaka1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Specific_rebUser_Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzYsImV4cCI6MTYzNjc4NTA2MH0.abMaS3mT7zvnUPnrg_vjxD4RMIfUgV6kR3VlbPmtUhg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"management_name_en\":\"Management Central\",\r\n        \"management_name_bn\":\"ব্যবস্থাপনা পরিচালন কেন্দ্রীয় অঞ্চল\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/rebuser/central",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"rebuser",
+						"central"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_delete by username",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzIsImV4cCI6MTYzNjc4NzU5M30.-3ro8trSWHK2MPsQWs8bT3_hRVi84dBlWzk6I5MboDU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user/tangail",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"tangail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NSwiZXhwIjoxNjMyNDgzODAxfQ.k8C0ChdNcCYZh-GgKLzCv_ujjHpjMFyNI1SQF8eyjho",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/profiles/tangail",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"profiles",
+						"tangail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "netmeter_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NjUsImV4cCI6MTYzMzQ1OTY2NX0.hpZyyvV-RpVb8vBsbrFFrbMpOs5qAflrczgnUt-bIBo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"install_meter_nos\": 50,\r\n        \"capacity_of_install_meter\": 400,\r\n        \"month\": \"07\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"office_code\": 15\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/net_meter_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"net_meter_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "netmeter_get",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disableCookies": false
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzMDE5NH0.lH0XuTgqlcuQoGC6vdYEm7N4-1W6mlV7W1Qbu1SS13w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/net_meter_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"net_meter_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "netmeter_Specific_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzMDE5NH0.lH0XuTgqlcuQoGC6vdYEm7N4-1W6mlV7W1Qbu1SS13w",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/net_meter_info/46/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"net_meter_info",
+						"46",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "netmeter_update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"install_meter_nos\": 55,\r\n        \"capacity_of_install_meter\": 400,\r\n        \"month\": \"07\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"pbs_code\": \"002\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/net_meter_info/46/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"net_meter_info",
+						"46",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "netmeter_Specific_delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzUsImV4cCI6MTYzNjg5MjY2NH0.TfuppRjz_mTVgUX-kz92KhtWBk4oRF3GjoL7Z_tq2ek",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "admin@gmail.com",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/net_meter_info/44/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"net_meter_info",
+						"44",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gridchargingstation_info_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"charging_station_nos\": 50,\r\n        \"charging_station_capacity\": 400,\r\n        \"month\": \"07\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"pbs_code\": \"001\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/gridchargingstation_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"gridchargingstation_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gridchargingstation_info_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/gridchargingstation_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"gridchargingstation_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gridchargingstation_Specific_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/gridchargingstation_info/2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"gridchargingstation_info",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gridchargingstation_update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"charging_station_nos\": 2,\r\n        \"charging_station_capacity\": 30,\r\n        \"month\": \"07\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"pbs_code\": \"001\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/gridchargingstation_info/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"gridchargingstation_info",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gridchargingstation_Specific_delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzUsImV4cCI6MTYzNjg5OTc1NH0.gP0V63FkF2AImWFMklmkAubZnLwzvKPDe5qhQVR9YB4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/gridchargingstation_info/2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"gridchargingstation_info",
+						"2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solar_info_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"last_month_solar_panel_consumer_nos\": 55,\r\n        \"last_month_solar_panel_capacity\": 450,\r\n        \"month\": \"08\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"pbs_code\": \"002\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/solar_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"solar_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solar_info_get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/solar_info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"solar_info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solar_info_Specific_get",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/solar_info/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"solar_info",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solar_info_Specific_update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"last_month_solar_panel_consumer_nos\": 45,\r\n        \"last_month_solar_panel_capacity\": 350,\r\n        \"month\": \"08\",\r\n        \"year\": \"2021\",\r\n        \"fy\": \"2021-2022\",\r\n        \"pbs_code\": \"002\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/solar_info/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"solar_info",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "solar_info_Specific_delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ODAsImV4cCI6MTYzNjgzNDMyN30.NzsItNZ2eRDyIoXwdg_UDERNV3XiExdTYideV4V3PDo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/solar_info/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"solar_info",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

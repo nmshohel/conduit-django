@@ -23,8 +23,10 @@ def create_related_profile(sender, instance, created, *args, **kwargs):
             ins= instance.is_management
             if ins==False:
                 instance.pbs = Pbs.objects.create(user=instance)
-            else:
+            elif ins==True:
                 instance.management = Management.objects.create(user=instance)
+            else:
+                pass            
         else:
             return NullBooleanField
 

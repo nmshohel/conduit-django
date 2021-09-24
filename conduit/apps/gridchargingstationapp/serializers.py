@@ -19,7 +19,7 @@ class GridChargingStationInfoSerializer(serializers.ModelSerializer):
     month=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
     year=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
     fy=serializers.CharField(max_length=50, allow_blank=True, allow_null=True)
-    pbs_code=serializers.IntegerField()
+    pbs_code=serializers.CharField(max_length=3, allow_blank=True, allow_null=True)
 
     class Meta:
         model = GridChargingStationInfo

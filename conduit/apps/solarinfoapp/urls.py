@@ -17,5 +17,4 @@ urlpatterns = [
     url('', include(router.urls)),
     url('<int:id>/', include(router.urls)),
     path('solar/info', solar_report, name='solar_report'),
-
 ]

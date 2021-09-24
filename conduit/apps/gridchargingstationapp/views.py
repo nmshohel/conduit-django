@@ -46,7 +46,7 @@ class GridChargingStationInfoRetrieveAPIView(RetrieveAPIView):
 class GridChargingStationInfoViewset(viewsets.ModelViewSet):
     serializer_class = GridChargingStationInfoSerializer
     # throttle_scope = "first_app"
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     def get_queryset(self):
         gridchargingstationinfo = GridChargingStationInfo.objects.all()
         # gridchargingstationinfo = GridChargingStationInfo.objects.raw('select * from gridchargingstationapp_GridChargingStationInfo where pbs_code=15')
@@ -66,10 +66,10 @@ class GridChargingStationInfoViewset(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
-        logedin_user = request.user
-        if(logedin_user == "admin"):
-            car = self.get_object()
-            car.delete()
+        # logedin_user = request.user
+        if(IsAuthenticated):
+            item = self.get_object()
+            item.delete()
             response_message = {"message": "Item has been deleted"}
         else:
             response_message = {"message": "Not Allowed"}

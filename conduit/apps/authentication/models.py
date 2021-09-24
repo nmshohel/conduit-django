@@ -1,5 +1,5 @@
-from conduit.apps import profiles
-from conduit.apps.profiles.models import Profile
+# from conduit.apps import profiles
+# from conduit.apps.profiles.models import Profile
 import jwt
 from datetime import datetime, timedelta
 from django.conf import settings
@@ -19,62 +19,53 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, username,is_management, email, password=None,):
+    def create_user(self, username, email,is_management, password=None,):
         """Create and return a `User` with an email, username and password."""
         if username is None:
             raise TypeError('Users must have a username.')
 
         if email is None:
             raise TypeError('Users must have an email address.')
-
+        # user = self.model(username=username, email=self.normalize_email(email))
         user = self.model(username=username, email=self.normalize_email(email),is_management=is_management)
         user.set_password(password)
-        # user.is_staff = True
+        user.is_staff = True
         user.save()
         
         return user
 
-    def create_superuser(self, username, email, password):
+    def create_superuser(self,username,email, is_management, password,):
         """
         Create and return a `User` with superuser (admin) permissions.
         """
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        user = self.create_user(username,email, password)
+        user = self.create_user( username,email,is_management=is_management)
+        user.set_password(password)
         user.is_superuser = True
         user.is_staff = True
-        user.is_management = True
-
         user.save()
 
         return user
 
 class User(AbstractBaseUser, PermissionsMixin,TimestampedModel):
-    # Each `User` needs a human-readable unique identifier that we can use to
-    # represent the `User` in the UI. We want to index this column in the
-    # database to improve lookup performance.
+
     username = models.CharField(db_index=True, max_length=255, unique=True)
 
-    # We also need a way to contact the user and a way for the user to identify
-    # themselves when logging in. Since we need an email address for contacting
-    # the user anyways, we will also use the email for logging in because it is
-    # the most common form of login credential at the time of writing.
     email = models.EmailField(db_index=True, unique=True)
 
-    # When a user no longer wishes to use our platform, they may try to delete
-    # their account. That's a problem for us because the data we collect is
-    # valuable to us and we don't want to delete it. We
-    # will simply offer users a way to deactivate their account instead of
-    # letting them delete it. That way they won't show up on the site anymore,
-    # but we can still analyze the data.
-    is_active = models.BooleanField(default=True)
+    # When a user are create it's default active status should be "False".
+    # That's why nobody can access db after create user without DB admin permission.
+    # DB admin need change the active status.
+
+    is_active = models.BooleanField(default=False)
 
     # The `is_staff` flag is expected by Django to determine who can and cannot
     # log into the Django admin site. For most users this flag will always be
     # false.
-    is_staff = models.BooleanField(default=False)
-    is_management = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
+    is_management = models.BooleanField(default=False, blank=True, null=True)
     # # A timestamp representing when this object was created.
     # created_at = models.DateTimeField(auto_now_add=True)
 
