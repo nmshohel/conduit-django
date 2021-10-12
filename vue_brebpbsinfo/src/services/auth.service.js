@@ -27,7 +27,8 @@ class AuthService {
       username: user.username,
       email: user.email,
       password: user.password,
-      is_management: user.is_management
+      is_management: user.is_management,
+      office_code: user.office_code
     });
   }
 }

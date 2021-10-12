@@ -2,9 +2,8 @@ import http from "../http-common";
 
 class NetmeterDataService {
   getAll() {
-    return http.get("/net_meter_info");
+    return http.get("/net_meter_info/");
   }
-
   get(id) {
     return http.get(`/net_meter_info/${id}`);
   }
@@ -25,9 +24,7 @@ class NetmeterDataService {
     return http.delete(`/net_meter_info`);
   }
 
-  findByTitle(title) {
-    return http.get(`/net_meter_info?title=${title}`);
-  }
+
 }
 
 export default new NetmeterDataService();

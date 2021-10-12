@@ -24,22 +24,30 @@
           name="capacity_of_install_meter"
         />
       </div>
+        <label for="month">Month</label>
+        <div class="form-group">
+             <select class="form-control" v-model="netmeterinfo.month">
+             <option disabled value="">Please select month</option>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+
+            </select>
+      </div>
+
 
       <div class="form-group">
-        <label for="month">month</label>
-        <input
-          type="text"
-          class="form-control"
-          id="month"
-          required
-          v-model="netmeterinfo.month"
-          name="month"
-        />
-      </div>
-      <div class="form-group">
         <label for="year">year</label>
-        <input
-          type="text"
+        <input type="number" min="2021" max="2099" step="1" value="2021"
           class="form-control"
           id="year"
           required
@@ -59,8 +67,15 @@
           name="fy"
         />
       </div>
+      <!-- <label for="pbs_code">pbs_code/label>
+        <div class="form-group">
+             <select class="form-control" v-model="netmeterinfo.pbs_code">
+                        <option value={{currentUser.office_code}}>December</option>
+
+            </select>
+      </div> -->
       <div class="form-group">
-        <label for="pbs_code">office_code</label>
+        <!-- <label for="pbs_code">office_code</label>
         <input
           type="text"
           class="form-control"
@@ -68,9 +83,11 @@
           required
           v-model="netmeterinfo.pbs_code"
           name="pbs_code"
-        />
-      </div>
+        /> -->
 
+         <!-- v-model=currentUser.office_code -->
+      </div>
+        {{currentUser.office_code}}
       <button @click="saveTutorial" class="btn btn-success">Submit</button>
     </div>
 
@@ -83,8 +100,23 @@
 
 <script>
 import NetmeterDataService from "../services/netmeter";
+ 
+
+
+
 
 export default {
+
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
+
+
+
+
+
   name: "add-netmeterinfo",
   data() {
     return {
@@ -101,6 +133,7 @@ export default {
       submitted: false
     };
   },
+  
   methods: {
     saveTutorial() {
       var data = {
@@ -109,7 +142,9 @@ export default {
         month: this.netmeterinfo.month,
         year: this.netmeterinfo.year,
         fy: this.netmeterinfo.fy,
-        pbs_code: this.netmeterinfo.pbs_code
+        // pbs_code: this.netmeterinfo.pbs_code
+        pbs_code:this.currentUser.office_code
+    
       };
 
       NetmeterDataService.create(data)
@@ -122,6 +157,8 @@ export default {
           console.log(e);
         });
     },
+     
+
 
     newNetmeter() {
       this.submitted = false;

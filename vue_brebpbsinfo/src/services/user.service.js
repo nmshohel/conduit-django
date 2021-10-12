@@ -7,7 +7,9 @@ class UserService {
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
-
+getAll() {
+    return axios.get(API_URL + 'net_meter_info/', { headers: authHeader() });
+  }
   getUserBoard() {
     return axios.get(API_URL + 'pbsusers', { headers: authHeader() });
   }

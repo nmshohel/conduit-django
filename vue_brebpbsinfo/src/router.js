@@ -3,6 +3,9 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
+import Netmeterrpt from './views/netmeterrpt.vue';
+import solarrpt from './views/solarrpt.vue';
+import cstationrpt from './views/cstationrpt.vue';
 
 Vue.use(Router);
 
@@ -17,6 +20,18 @@ export const router = new Router({
     {
       path: '/home',
       component: Home
+    },
+    {
+      path: '/netmeterrpt',
+      component: Netmeterrpt
+    },
+    {
+      path: '/solarrpt',
+      component: solarrpt
+    },
+     {
+      path: '/cstationrpt',
+      component: cstationrpt
     },
     {
       path: '/login',
@@ -53,10 +68,10 @@ export const router = new Router({
     {
       path: "/netmeterlist",
       name: "netmeterlist",
-      component: () => import("./components/NetMeterList")
+      component: () => import("./components/NetmeterList")
     },
     {
-      path: "/netmeter/:id",
+      path: "/netmeterlist/:id",
       name: "netmeter-details",
       component: () => import("./components/NetMeter")
     },
@@ -70,7 +85,12 @@ export const router = new Router({
       name: "addchargestation",
       component: () => import("./components/AddChargestation")
     },
-      {
+    {
+      path: "/tutorials",
+      name: "tutorials",
+      component: () => import("./components/TutorialsList")
+    },
+           {
       path: "/addsolar",
       name: "addsolar",
       component: () => import("./components/AddSolar")

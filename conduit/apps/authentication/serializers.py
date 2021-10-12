@@ -21,7 +21,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'token','is_management']
+        fields = ['email', 'username', 'password', 'token','is_management','office_code']
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
@@ -39,7 +39,7 @@ class SuperUserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'token','is_management']
+        fields = ['email', 'username', 'password','office_code', 'token','is_management']
 
     def create(self, validated_data):
         return User.objects.create_superuser(**validated_data)
@@ -49,6 +49,8 @@ class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
     username = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
+    office_code=serializers.CharField(max_length=3,read_only=True)
+    user_role=serializers.CharField(max_length=5,read_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
@@ -80,6 +82,8 @@ class LoginSerializer(serializers.Serializer):
         return {
             'email': user.email,
             'username': user.username,
+            'office_code':user.office_code,
+            'user_role':user.user_role,
             'token': user.token
         }
 

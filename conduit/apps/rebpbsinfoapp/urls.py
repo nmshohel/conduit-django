@@ -15,7 +15,7 @@ urlpatterns = [
     
     path('rebpbsinfoapp/<str:username>', NetMeterInfoRetrieveAPIView.as_view()),
     url('', include(router.urls)),
-    url('<int:id>/', include(router.urls)),
+    url('<int:id>', include(router.urls)),
     path('net_meter/', net_meter_report, name='net_meter_report'),
 
 ]

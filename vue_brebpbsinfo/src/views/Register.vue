@@ -50,19 +50,28 @@
               class="alert-danger"
             >{{errors.first('password')}}</div>
           </div>
-          <div class="form-group">
-            <label for="is_management">management</label>
+           <label for="is_management">Management</label>
+        <div class="form-group">
+             <select class="form-control" v-model="user.is_management">
+             <option disabled value="">Please select management</option>
+            <option value="true">BREB</option>
+            <option value="false">PBS</option>
+                        </select>
+      </div>
+
+           <div class="form-group">
+            <label for="office_code">Office_code</label>
             <input
-              v-model="user.is_management"
-              v-validate="'required|min:3|max:20'"
+              v-model="user.office_code"
+              v-validate="'required|min:3|max:3'"
               type="text"
               class="form-control"
-              name="is_management"
+              name="office_code"
             />
             <div
-              v-if="submitted && errors.has('is_management')"
+              v-if="submitted && errors.has('office_code')"
               class="alert-danger"
-            >{{errors.first('is_management')}}</div>
+            >{{errors.first('office_code')}}</div>
           </div>
           <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
@@ -86,7 +95,7 @@ export default {
   name: 'Register',
   data() {
     return {
-      user: new User('', '', ''),
+      user: new User('', '', '',''),
       submitted: false,
       successful: false,
       message: ''

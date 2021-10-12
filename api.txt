@@ -1,0 +1,70 @@
+1. /api/v1/register --> POST ->Done 					>> http://127.0.0.1:8000/api/v1/register/	# New Registerd user shouldbe inactive, It need Active by Admin user
+1. /api/v1/superuserregister --> POST ->Done				>> http://127.0.0.1:8000/api/v1/superuserregister/
+2. /api/v1/login ---> POST ->Done   					>> http://127.0.0.1:8000/api/v1/login
+request:
+---------
+{
+    "username":"tangail@gmail.com",
+    "password: "123456"
+}
+
+response:
+----------
+{
+    "pbs-name":"Tangail PBS",
+    "address":"tasdfsdf"
+}
+
+3.  /api/v1/rebusers 	       --> GET ->Done  				>> http://127.0.0.1:8000/api/v1/rebusers
+4.  /api/v1/rebuser/{username} --> GET --> Specific User -> 		>> http://127.0.0.1:8000/api/v1/rebuser/<username>
+5.  /api/v1/rebuser/{username} --> PUT --> Update specific user 	>> http://127.0.0.1:8000/api/v1/rebuser/<username>
+6.  /api/v1/rebuser/{username} --> DELETE --> Delete specific User	>> http://127.0.0.1:8000/api/v1/user/<username>
+7.  /api/v1/rebuser 	       --> Delete				
+
+8.  /api/v1/pbsusers 	       --> GET -->Done  			>> http://127.0.0.1:8000/api/v1/pbsusers
+9.  /api/v1/pbsuser/{username} --> GET --> Specific User -> 		>> http://127.0.0.1:8000/api/v1/pbsuser/<username>
+10. /api/v1/pbsuser/{username} --> PUT --> Update specific user		>> http://127.0.0.1:8000/api/v1/pbsuser/<username>
+11. /api/v1/pbsuser/{username} --> DELETE --> Delete specific User	>> http://127.0.0.1:8000/api/v1/user/<username>
+12. /api/v1/pbsuser 	       --> Delete				
+--------------------------------------------------------------------------------------------------------------------------
+13. /api/v1/net_meter_info 	--> GET					>> http://127.0.0.1:8000/api/v1/net_meter_info/
+14. /api/v1/net_meter_info/{id} --> GET					>> http://127.0.0.1:8000/api/v1/net_meter_info/<id>/
+15. /api/v1/net_meter_info 	--> POST				>> http://127.0.0.1:8000/api/v1/net_meter_info/
+16. /api/v1/net_meter_info/{id} --> PUT --> update			>> http://127.0.0.1:8000/api/v1/net_meter_info/<id>/
+17. /api/v1/net_meter_info/{id} --> DELETE --> delete			>> http://127.0.0.1:8000/api/v1/net_meter_info/<id>/
+18. /api/v1/net_meter_info 	--> DELETE
+
+19. /api/v1/grid-charging-station/info 		--> GET			>> http://127.0.0.1:8000/api/v1/gridchargingstation_info/
+20. /api/v1/grid-charging-station/info/{id}	--> GET			>> http://127.0.0.1:8000/api/v1/gridchargingstation_info/<id>/
+21. /api/v1/grid-charging-station/info 		--> POST		>> http://127.0.0.1:8000/api/v1/gridchargingstation_info/
+22. /api/v1/grid-charging-station/info/{id} 	--> PUT --> update	>> http://127.0.0.1:8000/api/v1/gridchargingstation_info/<id>/
+23. /api/v1/grid-charging-station/info/{id} 	--> DELETE --> delete	>> http://127.0.0.1:8000/api/v1/gridchargingstation_info/<id>/
+24. /api/v1/grid-charging-station/info 		--> DELETE
+
+25. /api/v1/solar/info 				--> GET			>> http://127.0.0.1:8000/api/v1/solar_info/
+26. /api/v1/solar/info/{id} 			--> GET			>> http://127.0.0.1:8000/api/v1/solar_info/<id>/
+27. /api/v1/solar/info 				--> POST		>> http://127.0.0.1:8000/api/v1/solar_info/
+28. /api/v1/solar/info/{id} 			--> PUT --> update	>> http://127.0.0.1:8000/api/v1/solar_info/<id>/
+29. /api/v1/solar/info/{id} 			--> DELETE --> delete	>> http://127.0.0.1:8000/api/v1/solar_info/<id>/
+30. /api/v1/solar/info 				--> DELETE
+
+----------------------------------------------------------------------------------------------------------------------------
+
+37. /api/v1/app --> GET
+{
+
+    "apps":["pbs", "solar", "grid-charging"]
+}
+38. /api/v1/app/info/{id} --> GET
+39. /api/v1/app/info/ --> POST
+
+---
+https://www.techiediaries.com/vue-axios-tutorial/#Vue_Axios_Get_Example
+https://www.bezkoder.com/jwt-vue-vuex-authentication/
+https://www.youtube.com/watch?v=aV3B3n6YRPg&list=PLPwpWyfm6JADRf8x1Jc0Da8R71WJyt-Jn&index=16
+npm install vue-router
+npm install vuex
+npm install vee-validate@2.2.15
+npm install axios
+npm install bootstrap jquery popper.js
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome

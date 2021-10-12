@@ -9,6 +9,12 @@ from django.contrib.auth.models import (
 from django.db import models
 from conduit.apps.core.models import TimestampedModel
 
+role_choice=(
+    ('admin','Admin'),
+    ('mod','Moderator'),
+    ('user','User'),
+)
+
 class UserManager(BaseUserManager):
     """
     Django requires that custom users define their own Manager class. By
@@ -19,7 +25,7 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, username, email,is_management, password=None,):
+    def create_user(self, username, email,is_management,office_code, password=None,):
         """Create and return a `User` with an email, username and password."""
         if username is None:
             raise TypeError('Users must have a username.')
@@ -27,21 +33,21 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users must have an email address.')
         # user = self.model(username=username, email=self.normalize_email(email))
-        user = self.model(username=username, email=self.normalize_email(email),is_management=is_management)
+        user = self.model(username=username, email=self.normalize_email(email),is_management=is_management,office_code=office_code)
         user.set_password(password)
         user.is_staff = True
         user.save()
         
         return user
 
-    def create_superuser(self,username,email, is_management, password,):
+    def create_superuser(self,username,email, is_management,office_code, password,):
         """
         Create and return a `User` with superuser (admin) permissions.
         """
         if password is None:
             raise TypeError('Superusers must have a password.')
 
-        user = self.create_user( username,email,is_management=is_management)
+        user = self.create_user( username,email,is_management=is_management,office_code=office_code)
         user.set_password(password)
         user.is_superuser = True
         user.is_staff = True
@@ -54,6 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin,TimestampedModel):
     username = models.CharField(db_index=True, max_length=255, unique=True)
 
     email = models.EmailField(db_index=True, unique=True)
+    office_code=models.CharField(db_index=True,max_length=3,blank=True,null=True,unique=True)
 
     # When a user are create it's default active status should be "False".
     # That's why nobody can access db after create user without DB admin permission.
@@ -66,6 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin,TimestampedModel):
     # false.
     is_staff = models.BooleanField(default=True)
     is_management = models.BooleanField(default=False, blank=True, null=True)
+    user_role = models.CharField(choices=role_choice, max_length=5, default='user')
     # # A timestamp representing when this object was created.
     # created_at = models.DateTimeField(auto_now_add=True)
 
