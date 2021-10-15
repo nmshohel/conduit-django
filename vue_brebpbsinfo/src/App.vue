@@ -62,14 +62,14 @@
                       <div v-if="currentUser" class="w3-bar-block">
                         <i class="fas fa-trash-alt"></i>
                         <router-link to="/home" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>Home</router-link>
-                       <router-link to="/addnetmeter" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addNetmeter</router-link>
-                       <router-link to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>NetmeterEdit</router-link>
+                       <router-link v-if="showUserBoard"  to="/addnetmeter" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addNetmeter</router-link>
+                       <router-link v-if="showAdminBoard" to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>NetmeterEdit</router-link>
                         <router-link to="/netmeterrpt" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Netmeter Report</router-link>
-                        <router-link to="/addsolar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addSolar</router-link>
-                       <router-link to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>SolarEdit</router-link>
+                        <router-link v-if="showUserBoard" to="/addsolar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addSolar</router-link>
+                       <router-link v-if="showAdminBoard" to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>SolarEdit</router-link>
                         <router-link to="/solarrpt" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>Solar Report</router-link>
-                        <router-link to="/addchargestation" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addChargingStation</router-link>
-                       <router-link to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>ChargingStationEdit</router-link>
+                        <router-link v-if="showUserBoard" to="/addchargestation" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>addChargingStation</router-link>
+                       <router-link v-if="showAdminBoard" to="/netmeterlist" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>ChargingStationEdit</router-link>
                         <router-link to="/cstationrpt" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>ChargingStation Report</router-link>
                         <router-link to="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i> Logout</router-link>
                           <router-link to="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i> Settings</router-link><br><br>
@@ -109,8 +109,14 @@ export default {
       return this.$store.state.auth.user;
     },
     showAdminBoard() {
-      if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_ADMIN');
+      if (this.currentUser && this.currentUser.user_role) {
+        return this.currentUser.user_role.includes('admin');
+      }
+      return false;
+    },
+    showUserBoard() {
+      if (this.currentUser && this.currentUser.user_role) {
+        return this.currentUser.user_role.includes('user');
       }
       return false;
     },

@@ -102,9 +102,6 @@
 import NetmeterDataService from "../services/netmeter";
  
 
-
-
-
 export default {
 
   computed: {
@@ -112,10 +109,6 @@ export default {
       return this.$store.state.auth.user;
     }
   },
-
-
-
-
 
   name: "add-netmeterinfo",
   data() {
